@@ -1,523 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TRIGANO MDC - Gestion des Absences V8</title>
-  <style>
-    :root {
-      --trigano-red: #E30613;
-      --bg-dark: #0a0e17;
-      --card-dark: #141c2e;
-      --border-dark: #232f48;
-      --text-white: #ffffff;
-      --text-gray: #94a3b8;
-      --accent-orange: #f59e0b;
-      --accent-green: #10b981;
-      --accent-blue: #38bdf8;
-    }
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#c91029"><title>Trigano | Suivi des opérateurs atelier mobil-home</title>
+<style>
+:root{--red:#d10a2b;--dark:#132033;--text:#243247;--mut:#65748a;--line:#e3e8ee;--bg:#f4f6fa;--white:#fff;--green:#087c56;--amber:#b86a05;--blue:#245fa9;--shadow:0 8px 28px rgba(20,36,58,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,'Segoe UI',Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}input,select,textarea{min-width:0;border:1px solid #d2dce6;border-radius:9px;background:#fff;color:var(--text);padding:10px 11px;width:100%}input:focus,select:focus,button:focus-visible{outline:2px solid #e67890;outline-offset:1px}header{background:var(--dark);color:white;padding:0 26px;border-bottom:4px solid var(--red)}.headwrap{max-width:1460px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:78px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:15px}.brandmark{font-size:18px;font-weight:900;background:var(--red);border-radius:9px;padding:12px 15px;letter-spacing:.04em}.brand h1{font-size:19px;line-height:1.12;margin:0}.brand small{color:#b8c4d5;font-size:12px}.headright{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.headright .tag{border:1px solid #3c4b62;border-radius:100px;padding:7px 12px;color:#cbd5e4;font-size:12px}main{max-width:1460px;margin:0 auto;padding:22px 24px 36px}.tabs{display:flex;gap:6px;margin:0 0 18px;flex-wrap:wrap}.tab{padding:11px 16px;background:#fff;color:var(--mut);border:1px solid var(--line);font-weight:750;border-radius:10px}.tab.active{background:var(--red);border-color:var(--red);color:#fff}.toolbar{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:17px}.field{display:grid;gap:5px}.field label{font-size:12px;color:var(--mut);font-weight:750}.filters{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.filters .field{min-width:168px}.btn{border:0;background:var(--red);color:#fff;border-radius:9px;padding:11px 15px;font-weight:750;white-space:nowrap}.btn:hover{filter:brightness(.95)}.btn.secondary{background:#fff;color:var(--dark);border:1px solid var(--line)}.btn.navy{background:var(--dark)}.btn.small{padding:7px 10px;font-size:12px}.btn.danger{background:#fff;color:#c31b38;border:1px solid #f0b7c3}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;box-shadow:var(--shadow)}.kpi .l{color:var(--mut);font-size:12px;font-weight:700}.kpi .v{font-size:28px;font-weight:850;line-height:1.25;margin-top:7px}.kpi .sub{color:var(--mut);font-size:11px}.kpi.red .v{color:var(--red)}.kpi.green .v{color:var(--green)}.kpi.amber .v{color:var(--amber)}.kpi.blue .v{color:var(--blue)}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);margin-bottom:17px;overflow:hidden}.paneltitle{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.paneltitle h2{margin:0;font-size:16px}.hint{font-size:12px;color:var(--mut)}.scroll{overflow:auto}.tbl{width:100%;border-collapse:collapse;min-width:1000px}.tbl th{background:#f8fafc;color:#637187;font-size:11px;letter-spacing:.04em;text-align:left;text-transform:uppercase;padding:11px 13px;white-space:nowrap}.tbl td{padding:11px 13px;border-top:1px solid #edf1f6;vertical-align:middle}.tbl tbody tr:hover{background:#fafbfd}.tbl .person{font-weight:750}.mut{color:var(--mut)}.pill{display:inline-block;border-radius:100px;padding:4px 9px;background:#eef2f6;color:#58667b;font-size:11px;font-weight:800;white-space:nowrap}.pill.cdi{background:#e7f1fb;color:#235b91}.pill.adecco{background:#fff0e8;color:#a95320}.status{font-weight:700;min-width:148px}.status[data-status="present"]{background:#e9f8f1;color:var(--green)}.status[data-status="absent"]{background:#feebee;color:#b51d39}.status[data-status="retard"]{background:#fff4e3;color:#99600b}.status[data-status="depart"]{background:#fff4e3;color:#99600b}.status[data-status="conge"],.status[data-status="formation"]{background:#edf3fc;color:#2b5d9d}.compact{max-width:130px}.subline{display:block;font-size:11px;color:var(--mut);margin-top:3px}.empty{padding:40px 18px;text-align:center;color:var(--mut)}.formgrid{padding:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.formgrid .wide{grid-column:span 2}.formgrid button{align-self:end}.notice{background:#fff8e7;border:1px solid #efdcae;border-radius:10px;padding:12px 15px;margin-bottom:18px;color:#775519;font-size:12px}.notice strong{color:#69470f}.summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px}.barline{display:flex;align-items:center;gap:10px;margin:8px 0}.barline span{width:120px;color:var(--mut);font-size:12px}.bartrack{flex:1;background:#edf0f5;height:12px;border-radius:20px;overflow:hidden}.barfill{height:100%;background:var(--red);border-radius:20px}.barline b{min-width:34px;text-align:right}.two{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}.chartcard{padding:17px}.chartcard h3{font-size:14px;margin:0 0 12px}.modalwrap{position:fixed;inset:0;background:#15203599;z-index:20;display:flex;align-items:center;justify-content:center;padding:15px}.modal{background:#fff;border-radius:14px;padding:22px;max-width:500px;width:100%;box-shadow:0 20px 80px #0003}.modal h2{margin:0 0 15px}.modal form{display:grid;gap:12px}.modal .actions{justify-content:flex-end;margin-top:9px}#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;border-radius:9px;padding:10px 17px;z-index:30;display:none;max-width:92vw}.footer{font-size:12px;color:var(--mut);padding:4px 0}.printhead{display:none}button.iconbtn{border:0;background:transparent;color:#b52945;padding:7px;font-size:18px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.formgrid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}@media(max-width:650px){main{padding:14px 10px}header{padding:8px 12px}.headwrap{min-height:65px}.brandmark{font-size:14px}.brand h1{font-size:15px}.kpis{grid-template-columns:repeat(2,1fr);gap:8px}.kpi{padding:12px}.kpi .v{font-size:24px}.toolbar{align-items:stretch}.filters{width:100%}.filters .field{flex:1;min-width:135px}.summary{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:span 1}.headright .tag{display:none}}
+@media print{@page{size:A4 landscape;margin:12mm}body{background:white;color:black}header{background:#fff;color:black;border-bottom:3px solid #c00;padding:0 0 10px}.brandmark{background:#c00;color:#fff}.headright,.tabs,.toolbar,.actions,.notice,.noprint,.iconbtn,.footer,#toast,.modalwrap{display:none!important}main{padding:10px 0}.kpis{grid-template-columns:repeat(5,1fr)}.kpi,.panel{box-shadow:none;border-color:#bbb;break-inside:avoid}.kpi{padding:9px}.kpi .v{font-size:20px}.scroll{overflow:visible}.tbl{min-width:0;font-size:10px}.tbl td,.tbl th{padding:5px}.tbl select,.tbl input{display:none}.printhead{display:block;margin:10px 0;font-weight:bold}.pill{border:1px solid #bbb}.status-text{display:inline!important}.no-print-col{display:none!important}.tbl th:last-child,.tbl td:last-child{display:none}}
+.login-overlay{position:fixed;inset:0;background:#e9edf4;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}.login-overlay[hidden]{display:none}.login-card{width:min(430px,100%);background:white;border-radius:16px;overflow:hidden;box-shadow:0 18px 70px #14243a22}.login-brand{background:#d10a2b;color:white;padding:26px;display:grid;gap:6px;text-align:center}.login-brand b{font-size:30px;letter-spacing:.04em}.login-brand span{font-size:13px}.login-form{padding:24px;display:grid;gap:15px}.login-form h2{margin:0;font-size:20px}.login-form label{display:grid;gap:6px;font-size:13px;font-weight:700}.login-form button{width:100%}.login-form small{color:#67748a;text-align:center}.login-form #loginError{color:#bb1732;min-height:1em;font-weight:700;margin:0}#syncError[hidden]{display:none}#lastsaved{max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-white); height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-
-    /* HEADER & CALENDRIER */
-    header { background-color: #060910; padding: 1.5vh 2vw; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5vh solid var(--trigano-red); }
-    .brand { display: flex; align-items: center; gap: 1.2vw; }
-    .logo-box { background-color: var(--trigano-red); color: white; font-weight: 900; font-size: 3vh; padding: 0.8vh 1.5vw; border-radius: 0.5vh; letter-spacing: 0.2vw; }
-    .site-title { font-size: 3.2vh; font-weight: 700; color: var(--text-gray); text-transform: uppercase; }
-    
-    .date-picker-container { display: flex; align-items: center; gap: 1vw; background: var(--card-dark); padding: 0.5vh 1vw; border-radius: 1vh; border: 0.2vh solid var(--border-dark); transition: all 0.3s; }
-    .date-label { font-weight: 700; color: var(--text-gray); font-size: 1.8vh; text-transform: uppercase; }
-    input[type="date"] { background: var(--bg-dark); color: white; border: 0.2vh solid var(--border-dark); padding: 1vh; font-size: 2.2vh; border-radius: 0.5vh; font-weight: 700; cursor: pointer; color-scheme: dark; }
-
-    .archive-active { border-color: var(--accent-orange) !important; background: rgba(245, 158, 11, 0.1) !important; }
-    .archive-active .date-label { color: var(--accent-orange); }
-    
-    .btn-today { display: none; background: var(--accent-orange); color: black; border: none; padding: 1vh 1vw; font-weight: 800; font-size: 1.6vh; border-radius: 0.5vh; cursor: pointer; text-transform: uppercase; }
-
-    /* CONTENU PRINCIPAL */
-    main { flex: 1; padding: 2vh 2vw; display: flex; flex-direction: column; gap: 2vh; overflow-y: auto; }
-
-    .add-bar { background-color: var(--card-dark); border: 0.2vh solid var(--border-dark); border-left: 0.8vh solid var(--accent-green); border-radius: 1vh; padding: 1.5vh 2vw; display: flex; gap: 1.5vw; align-items: center; }
-    .add-bar input[type="text"] { flex: 1; padding: 1.2vh; background: var(--bg-dark); border: 0.2vh solid var(--border-dark); color: white; font-size: 1.8vh; border-radius: 0.5vh; }
-    .add-bar select { padding: 1.2vh; background: var(--bg-dark); border: 0.2vh solid var(--border-dark); color: white; font-size: 1.8vh; border-radius: 0.5vh; cursor: pointer; }
-    .btn-add { background: var(--accent-green); color: #000; border: none; padding: 1.2vh 2vw; font-size: 1.8vh; font-weight: 700; border-radius: 0.5vh; cursor: pointer; }
-
-    /* TABLEAU */
-    .table-container { background: var(--card-dark); border: 0.2vh solid var(--border-dark); border-radius: 1vh; overflow: hidden; flex: 1; }
-    table { width: 100%; border-collapse: collapse; text-align: left; }
-    th { background: #060910; padding: 1.5vh 1vw; font-size: 1.5vh; color: var(--text-gray); text-transform: uppercase; border-bottom: 0.2vh solid var(--border-dark); }
-    td { padding: 1.2vh 1vw; border-bottom: 0.1vh solid var(--border-dark); font-size: 1.8vh; vertical-align: middle; }
-    tr:hover { background: rgba(255,255,255,0.02); }
-
-    .badge-contrat { padding: 0.4vh 0.8vw; border-radius: 0.5vh; font-size: 1.3vh; font-weight: 800; text-transform: uppercase; }
-    .badge-trigano { background: rgba(227, 6, 19, 0.15); color: var(--trigano-red); border: 0.1vh solid var(--trigano-red); }
-    .badge-adecco { background: rgba(234, 10, 42, 0.15); color: #ff4d6d; border: 0.1vh solid #ea0a2a; }
-
-    .motif-selector { background: var(--bg-dark); color: white; border: 0.2vh solid var(--border-dark); padding: 0.8vh 1vw; font-size: 1.6vh; font-weight: 600; border-radius: 0.5vh; width: 100%; cursor: pointer; }
-    .motif-selector option { background: var(--card-dark); color: white; padding: 0.5vh; }
-
-    /* Saisie du temps (Heures et Minutes) */
-    .time-input-wrapper { display: flex; align-items: center; justify-content: center; background: var(--bg-dark); padding: 0.5vh 0.8vw; border-radius: 0.5vh; border: 0.2vh solid var(--border-dark); width: max-content; margin: 0 auto; }
-    .time-input { width: 2.5vw; min-width: 35px; background: transparent; border: none; color: white; font-size: 1.8vh; font-weight: 700; text-align: center; outline: none; -moz-appearance: textfield; }
-    .time-input::-webkit-outer-spin-button, .time-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    .time-separator { color: var(--text-gray); font-size: 1.6vh; font-weight: 700; margin: 0 0.2vw; }
-
-    .btn-justif { padding: 0.8vh 1vw; font-size: 1.4vh; font-weight: 700; border-radius: 0.5vh; border: 0.2vh solid; cursor: pointer; width: 100%; text-align: center; }
-    .btn-justif.no { background: rgba(227, 6, 19, 0.1); border-color: var(--trigano-red); color: var(--trigano-red); }
-    .btn-justif.yes { background: rgba(16, 185, 129, 0.1); border-color: var(--accent-green); color: var(--accent-green); }
-    .btn-delete { background: transparent; border: none; color: var(--text-gray); font-size: 2vh; cursor: pointer; }
-    .btn-delete:hover { color: var(--trigano-red); }
-
-    /* FOOTER */
-    .summary-bar { display: flex; justify-content: space-between; align-items: center; background: #060910; padding: 1.5vh 2vw; border-top: 0.2vh solid var(--border-dark); }
-    .counters { display: flex; gap: 4vw; }
-    .counter-item { display: flex; flex-direction: column; align-items: center; }
-    .counter-label { font-size: 1.4vh; color: var(--text-gray); text-transform: uppercase; font-weight: 700; margin-bottom: 0.5vh; }
-    .counter-value { font-size: 2.8vh; font-weight: 900; }
-    .val-red { color: var(--trigano-red); }
-    .val-blue { color: var(--accent-blue); }
-
-    .action-group { display: flex; gap: 1vw; }
-    .btn-action { background: var(--card-dark); color: var(--text-white); border: 0.2vh solid var(--border-dark); padding: 1.2vh 1.2vw; border-radius: 0.5vh; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.5vw; font-size: 1.6vh; }
-    .btn-save { background: var(--accent-green); color: black; border: none; }
-    
-    @keyframes pulse-orange { 0% { box-shadow: 0 0 0 0 rgba(245,158,11,0.7); } 70% { box-shadow: 0 0 0 10px rgba(245,158,11,0); } 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); } }
-    .toast { visibility: hidden; min-width: 300px; background-color: var(--accent-green); color: black; text-align: center; border-radius: 0.5vh; padding: 1.5vh; position: fixed; z-index: 1000; left: 50%; bottom: 10vh; font-size: 1.8vh; font-weight: bold; transform: translateX(-50%); }
-    .toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-    @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 10vh; opacity: 1;} }
-    @keyframes fadeout { from {bottom: 10vh; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
-    /* ELEMENTS SPÉCIFIQUES IMPRESSION */
-    .print-only-text { display: none; }
-    .print-signature { display: none; }
-    .print-header-details { display: none; }
-
-    @media print {
-      @page { margin: 1.5cm; size: A4 portrait; }
-      body { background-color: white !important; color: black !important; height: auto; font-family: Arial, sans-serif; }
-      
-      .date-picker-container, .btn-today, .add-bar, .action-group, .btn-delete, .motif-selector, .time-input-wrapper, .btn-justif, .toast { display: none !important; }
-      
-      header { background: white !important; border-bottom: 3px solid black !important; padding: 0 0 15px 0 !important; margin-bottom: 20px; flex-direction: column; align-items: flex-start; }
-      .brand { margin-bottom: 10px; }
-      .logo-box { background: black !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 5px 10px; }
-      .site-title { color: black !important; font-size: 18px; }
-      .print-header-details { display: block !important; font-size: 16px; font-weight: bold; margin-top: 10px; color: #333; }
-
-      .summary-bar { background: #f8f9fa !important; border: 2px solid black !important; padding: 15px !important; margin-bottom: 20px; display: flex !important; justify-content: space-around !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; border-radius: 0; }
-      .counter-item { text-align: center; }
-      .counter-label { color: #555 !important; font-size: 12px !important; display: block; margin-bottom: 5px; }
-      .counter-value { color: black !important; font-size: 24px !important; }
-
-      main { padding: 0 !important; display: block; overflow: visible; }
-      .table-container { border: none !important; border-radius: 0 !important; }
-      table { border-collapse: collapse; width: 100%; border: 2px solid black; }
-      th { background: #e2e8f0 !important; color: black !important; border: 1px solid black; padding: 10px; font-size: 12px; text-align: left; -webkit-print-color-adjust: exact; }
-      td { border: 1px solid black; color: black !important; padding: 8px 10px; font-size: 13px; background-color: #fff1f2 !important; -webkit-print-color-adjust: exact; } /* Léger rouge car ce sont tous des absents */
-      
-      .badge-contrat { border: 1px solid black !important; color: black !important; background: transparent !important; padding: 2px 5px; font-size: 11px; }
-      
-      .print-only-text { display: block !important; }
-      .status-absent { font-weight: bold; color: black; }
-
-      .print-signature { display: flex !important; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px dashed #ccc; }
-      .sig-box { border: 1px solid #000; width: 250px; height: 100px; margin-top: 10px; }
-    }
-  </style>
 </head>
-<body>
+<body><header><div class="headwrap"><div class="brand"><div class="brandmark">TRIGANO</div><div><h1>Suivi des opérateurs</h1><small>Atelier mobil-home • Effectifs, absences et retards</small></div></div><div class="headright"><span class="tag noprint" id="currentuser">Non connecté</span><button class="btn secondary small noprint" id="logout" type="button">Déconnexion</button><span class="tag">Registre atelier</span><span class="tag" id="lastsaved">Connexion sécurisée</span></div></div></header>
+<main><div class="notice"><strong>Suivi collectif :</strong> Comptes Trigano et Adecco. Les modifications sont sauvegardées dans MySQL CloudFive via l’API alwaysdata et synchronisées toutes les 5 secondes. Les données nominatives doivent être consultées uniquement par les personnes habilitées.</div><div class="notice" id="syncError" hidden style="background:#ffebee;border-color:#ef8799;color:#8b1831"><strong id="syncErrorText">Synchronisation interrompue.</strong> <button class="btn secondary small" id="backupConflict" type="button">Sauvegarder mes modifications</button> <button class="btn small" id="reloadConflict" type="button">Recharger les données du serveur</button></div>
+<nav class="tabs noprint" aria-label="Navigation"><button class="tab active" data-tab="day">Suivi journalier</button><button class="tab" data-tab="roster">Effectifs atelier</button><button class="tab" data-tab="stats">Tableau de bord</button><button class="tab" data-tab="sectors">Gérer les secteurs</button></nav>
+<div class="toolbar"><div class="filters"><div class="field"><label for="date">Date du suivi</label><input type="date" id="date"></div><div class="field"><label for="team">Secteur / ligne</label><select id="team"><option value="">Tous les secteurs</option></select></div><div class="field"><label for="search">Rechercher</label><input id="search" placeholder="Nom ou poste…"></div></div><div class="actions"><button class="btn secondary" id="today">Aujourd'hui</button><button class="btn secondary" id="print">Imprimer / PDF</button><button class="btn navy" id="csv">Exporter Excel (CSV)</button></div></div>
+<div class="printhead" id="printeddate"></div>
+<section class="kpis" id="kpis"></section>
+<div id="section-day"><section class="panel"><div class="paneltitle"><div><h2>Suivi des opérateurs</h2><div class="hint">Une ligne par opérateur • Déclare uniquement les absences, retards et autres événements</div></div><div class="actions noprint"><button class="btn" id="addperson">+ Ajouter un opérateur</button></div></div><div class="scroll"><table class="tbl"><thead><tr><th>Opérateur</th><th>Secteur</th><th>Contrat</th><th>Statut du jour</th><th>Motif</th><th>Temps perdu</th><th>Justifié</th><th>Commentaire</th></tr></thead><tbody id="daybody"></tbody></table></div><div class="empty" id="dayempty" hidden>Aucun opérateur enregistré. Ajoute-les dans « Effectifs atelier ».</div></section></div>
+<div id="section-roster" hidden><section class="panel"><div class="paneltitle"><div><h2>Effectifs de l'atelier</h2><div class="hint">Créer, modifier ou désactiver les fiches opérateurs.</div></div><button class="btn noprint" id="rosteradd">+ Nouvel opérateur</button></div><div class="scroll"><table class="tbl" style="min-width:710px"><thead><tr><th>Nom et prénom</th><th>Secteur</th><th>Poste</th><th>Contrat</th><th>Situation</th><th>Actions</th></tr></thead><tbody id="rosterbody"></tbody></table></div></section></div>
+<div id="section-stats" hidden><div class="two"><section class="panel chartcard"><h3>Répartition des événements — date sélectionnée</h3><div id="statusbars"></div></section><section class="panel chartcard"><h3>Effectifs par secteur</h3><div id="teambars"></div></section></div><section class="panel"><div class="paneltitle"><div><h2>Historique de suivi</h2><div class="hint">14 derniers jours pour les opérateurs du filtre actuel</div></div></div><div class="scroll"><table class="tbl" style="min-width:610px"><thead><tr><th>Date</th><th>Événements</th><th>Absents</th><th>Retards</th><th>Temps perdu</th></tr></thead><tbody id="historybody"></tbody></table></div></section></div>
+<div id="section-sectors" hidden><section class="panel"><div class="paneltitle"><div><h2>Gestion des secteurs et des lignes</h2><div class="hint">Ajouter, renommer ou supprimer les secteurs de ton atelier. Les fiches opérateurs sont mises à jour automatiquement.</div></div></div><div style="padding:18px"><form id="sectoraddform" class="actions noprint" style="max-width:650px;margin-bottom:20px"><input name="sector" maxlength="80" required placeholder="Nouveau secteur (ex. Ligne 8)" style="flex:1;min-width:200px"><button class="btn">+ Ajouter un secteur</button></form><div id="sectorlist"></div></div></section></div>
+<section class="panel noprint"><div class="paneltitle"><div><h2>Sauvegarde du registre</h2><div class="hint">Télécharger une sauvegarde du registre partagé</div></div><div class="actions"><button class="btn secondary" id="backup">Télécharger une sauvegarde JSON</button></div></div></section>
+<div class="footer">Suivi des opérateurs — Informations du personnel : accès réservé aux personnes autorisées. Les motifs médicaux ne doivent être saisis que si cela est autorisé et nécessaire.</div></main><div id="modalroot"></div><div id="toast" role="status"></div>
+<div id="loginOverlay" class="login-overlay"><div class="login-card"><div class="login-brand"><b>TRIGANO</b><span>Suivi des opérateurs • Atelier mobil-home</span></div><form id="loginForm" class="login-form"><h2>Connexion sécurisée</h2><label>Compte<select name="user"><option value="Trigano">Trigano</option><option value="Adecco">Adecco</option></select></label><label>Code d'accès<input name="code" type="password" required autocomplete="current-password" minlength="8" placeholder="Saisir votre code"></label><p id="loginError" role="alert"></p><button class="btn" type="submit">Se connecter</button><small>Les deux comptes partagent les mêmes données, en temps réel.</small></form></div></div>
+<script>
+'use strict';
+const API='https://mendestoss.alwaysdata.net/api/operateurs.php?route=';
+let token='',account='',version=0,dirty=0,saving=false,conflict=false,polling=false;
+let TEAMS=['Ligne 5','Ligne 6','Ligne 7','Préparation','Montage','Finition','Contrôle qualité','Logistique','Autre'];
+const STATUSES={none:'Non renseigné',absent:'Absent',retard:'Retard',depart:'Départ anticipé',conge:'Congé / RTT',formation:'Formation / mission'};
+const MOTIFS={journee:['Journée complète',510],matin:['Matin',270],aprem:['Après-midi',240],maladie:['Arrêt maladie',510],accident:['Accident du travail',510],injustifie:['Absence injustifiée',510],cp:['Congé payé',510],rtt:['RTT / repos',510],sans_solde:['Sans solde',510],familial:['Événement familial',510],visite:['Visite médicale',120],autre:['Autre',0]};
+const $=x=>document.querySelector(x); const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const id=()=>typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():'op_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const frdate=s=>{if(!s)return '';const [y,m,d]=s.split('-');return `${d}/${m}/${y}`};
+const fmt=n=>`${Math.floor(n/60)} h ${String(n%60).padStart(2,'0')}`;
+let data={people:[],days:{},teams:[...TEAMS],updated:null};let activeTab='day';let selectedDate=today();let filterTeam='';let query='';
+function toast(s){const n=$('#toast');n.textContent=s;n.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>n.style.display='none',2800)}
+function save(){data.teams=[...TEAMS];data.updated=new Date().toISOString();dirty++;$('#lastsaved').textContent='Enregistrement…';render();void flushChanges()}
+function normalize(input){if(!input||!Array.isArray(input.people)||typeof input.days!=='object'||input.days===null)throw new Error('Structure de fichier incorrecte');const rawTeams=Array.isArray(input.teams)?input.teams:TEAMS;TEAMS=[...new Set(rawTeams.filter(t=>typeof t==='string').map(t=>t.trim().slice(0,80)).filter(Boolean))];if(!TEAMS.length)TEAMS=['Atelier'];const people=input.people.filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string').map(p=>({id:p.id,name:p.name.slice(0,140),team:TEAMS.includes(p.team)?p.team:'Autre',job:String(p.job||'').slice(0,100),type:['trigano','adecco','autre'].includes(p.type)?p.type:'trigano',active:p.active!==false}));const ids=new Set(people.map(p=>p.id));const days={};for(const [date,vals] of Object.entries(input.days)){if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!vals||typeof vals!=='object'||Array.isArray(vals))continue;days[date]={};for(const [pid,r] of Object.entries(vals)){if(!ids.has(pid)||!r||typeof r!=='object')continue;days[date][pid]={status:(r.status==='present'?'none':STATUSES[r.status]?r.status:'none'),motif:MOTIFS[r.motif]?r.motif:'',minutes:Math.max(0,Math.min(1440,Number(r.minutes)||0)),justified:Boolean(r.justified),comment:String(r.comment||'').slice(0,500)}}}return {people,days,teams:[...TEAMS],updated:input.updated||null}}
+function initial(){data={people:[],days:{},teams:[...TEAMS],updated:null}}
+function getRec(pid,date=selectedDate){return data.days[date]?.[pid]||{status:'none',motif:'',minutes:0,justified:false,comment:''}}
+function updateRec(pid,patch){const p=data.people.find(p=>p.id===pid);if(!p)return;const prev=getRec(pid);const next={...prev,...patch};if(patch.status!==undefined){if(patch.status==='none'){next.motif='';next.minutes=0;next.justified=false}else if(patch.status==='absent'){next.motif='journee';next.minutes=510;next.justified=false}else if(patch.status==='retard'){next.motif='';next.minutes=15;next.justified=false}else if(patch.status==='depart'){next.motif='';next.minutes=60;next.justified=false}else if(patch.status==='conge'){next.motif='cp';next.minutes=510;next.justified=true}else if(patch.status==='formation'){next.motif='formation';next.minutes=0;next.justified=true}}if(patch.motif!==undefined&&MOTIFS[next.motif])next.minutes=MOTIFS[next.motif][1];(data.days[selectedDate]??={})[pid]=next;save()}
+function people(){return data.people.filter(p=>p.active&&(filterTeam===''||p.team===filterTeam)&&(p.name+' '+p.job).toLocaleLowerCase('fr').includes(query)).sort((a,b)=>a.team.localeCompare(b.team,'fr')||a.name.localeCompare(b.name,'fr'))}
+function kpi(items,date=selectedDate){const recs=items.map(p=>getRec(p.id,date));return {total:items.length,entered:recs.filter(r=>r.status!=='none').length,absent:recs.filter(r=>r.status==='absent').length,late:recs.filter(r=>r.status==='retard'||r.status==='depart').length,minutes:recs.reduce((n,r)=>n+(r.status==='absent'||r.status==='retard'||r.status==='depart'?r.minutes:0),0)}}
+function renderKpis(){const k=kpi(people());$('#kpis').innerHTML=[['Effectif actif',k.total,'Opérateurs du secteur',''],['Événements déclarés',k.entered,'Absences, retards, congés, formations','blue'],['Absents / retards',k.absent+k.late,`${k.absent} absents • ${k.late} retards/départs`,'red'],['Temps d’absence / retard',fmt(k.minutes),'Hors congés et formation','amber']].map(([l,v,s,c])=>`<article class="kpi ${c}"><div class="l">${l}</div><div class="v">${v}</div><div class="sub">${s}</div></article>`).join('')}
+function option(v,label,cur){return `<option value="${esc(v)}" ${cur===v?'selected':''}>${esc(label)}</option>`}
+function renderDay(){const ps=people();$('#dayempty').hidden=ps.length>0;$('#daybody').innerHTML=ps.map(p=>{const r=getRec(p.id);const hasMotif=r.status==='absent'||r.status==='conge';const time=r.status==='absent'||r.status==='retard'||r.status==='depart';return `<tr data-pid="${esc(p.id)}"><td><span class="person">${esc(p.name)}</span><span class="subline">${esc(p.job||'Poste non renseigné')}</span></td><td>${esc(p.team)}</td><td><span class="pill ${p.type==='adecco'?'adecco':'cdi'}">${p.type==='adecco'?'ADECCO':p.type==='trigano'?'TRIGANO':'AUTRE'}</span></td><td><select class="status" data-edit="status" data-status="${esc(r.status)}">${Object.entries(STATUSES).map(([v,l])=>option(v,l,r.status)).join('')}</select><span class="print-only status-text" style="display:none">${esc(STATUSES[r.status])}</span></td><td>${hasMotif?`<select data-edit="motif">${Object.entries(MOTIFS).map(([v,[l]])=>option(v,l,r.motif)).join('')}</select>`:'<span class="mut">—</span>'}<span class="status-text" style="display:none">${esc(MOTIFS[r.motif]?.[0]||'')}</span></td><td>${time?`<input class="compact" type="number" min="0" max="1440" step="1" title="Minutes" data-edit="minutes" value="${r.minutes}"><span class="subline">${fmt(r.minutes)} • minutes à saisir</span>`:'<span class="mut">—</span>'}<span class="status-text" style="display:none">${time?fmt(r.minutes):'—'}</span></td><td>${r.status!=='none'?`<input type="checkbox" data-edit="justified" ${r.justified?'checked':''} style="width:auto" aria-label="Justifié pour ${esc(p.name)}">`:'<span class="mut">—</span>'}<span class="status-text" style="display:none">${r.justified?'Oui':'Non'}</span></td><td><input data-edit="comment" maxlength="500" value="${esc(r.comment)}" placeholder="Note facultative" aria-label="Commentaire pour ${esc(p.name)}"><span class="status-text" style="display:none">${esc(r.comment)}</span></td></tr>`}).join('')}
+function renderRoster(){const ps=data.people.filter(p=>(filterTeam===''||p.team===filterTeam)&&(p.name+' '+p.job).toLocaleLowerCase('fr').includes(query)).sort((a,b)=>a.name.localeCompare(b.name,'fr'));$('#rosterbody').innerHTML=ps.length?ps.map(p=>`<tr><td><span class="person">${esc(p.name)}</span></td><td>${esc(p.team)}</td><td>${esc(p.job||'—')}</td><td>${p.type==='adecco'?'Intérim Adecco':p.type==='trigano'?'CDI / CDD Trigano':'Autre'}</td><td>${p.active?'Actif':'Inactif'}</td><td class="actions"><button class="btn secondary small" data-action="editperson" data-id="${esc(p.id)}">Modifier</button><button class="btn ${p.active?'danger':'secondary'} small" data-action="toggleperson" data-id="${esc(p.id)}">${p.active?'Désactiver':'Réactiver'}</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">Aucun opérateur.</td></tr>'}
+function bars(values){const max=Math.max(...values.map(x=>x[1]),1);return values.map(([l,n])=>`<div class="barline"><span>${esc(l)}</span><div class="bartrack"><div class="barfill" style="width:${Math.max(0,n)/max*100}%"></div></div><b>${n}</b></div>`).join('')}
+function renderStats(){const ps=people();$('#statusbars').innerHTML=bars(Object.entries(STATUSES).filter(([k])=>k!=='none').map(([k,l])=>[l,ps.filter(p=>getRec(p.id).status===k).length]));$('#teambars').innerHTML=bars(TEAMS.map(t=>[t,data.people.filter(p=>p.active&&p.team===t).length]));const out=[];for(let i=0;i<14;i++){const d=new Date(`${selectedDate}T12:00:00`);d.setDate(d.getDate()-i);const date=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const k=kpi(ps,date);out.push(`<tr><td>${frdate(date)}</td><td>${k.entered}</td><td>${k.absent}</td><td>${k.late}</td><td>${fmt(k.minutes)}</td></tr>`)}$('#historybody').innerHTML=out.join('')}
+function render(){const choices=TEAMS.map(t=>option(t,t,filterTeam)).join('');$('#team').innerHTML='<option value="">Tous les secteurs</option>'+choices;$('#printeddate').textContent='Suivi des opérateurs • '+frdate(selectedDate)+(filterTeam?' • '+filterTeam:' • Tous les secteurs');document.querySelectorAll('[data-tab]').forEach(t=>t.classList.toggle('active',t.dataset.tab===activeTab));for(const t of ['day','roster','stats','sectors'])$('#section-'+t).hidden=activeTab!==t;renderKpis();if(activeTab==='day')renderDay();if(activeTab==='roster')renderRoster();if(activeTab==='stats')renderStats();if(activeTab==='sectors')renderSectors()}
+function renderSectors(){const el=$('#sectorlist');el.innerHTML=TEAMS.map((name,i)=>{const count=data.people.filter(p=>p.team===name).length;return `<div class="actions" style="border-bottom:1px solid var(--line);padding:12px 0;gap:12px"><span style="font-weight:750;flex:1;min-width:150px">${esc(name)}</span><span class="mut">${count} opérateur${count>1?'s':''}</span><button type="button" class="btn secondary small" data-sector="rename" data-idx="${i}">Renommer</button><button type="button" class="btn danger small" data-sector="remove" data-idx="${i}" ${TEAMS.length===1?'disabled title="Il faut conserver au moins un secteur"':''}>Supprimer</button></div>`}).join('')}
+function addSector(name){name=name.trim().replace(/\s+/g,' ').slice(0,80);if(!name){alert('Saisis un nom de secteur.');return false}if(TEAMS.some(t=>t.toLocaleLowerCase('fr')===name.toLocaleLowerCase('fr'))){alert('Ce secteur existe déjà.');return false}TEAMS.push(name);save();toast('Secteur ajouté');return true}
+function renameSector(i){const old=TEAMS[i];if(!old)return;const candidate=prompt('Nouveau nom du secteur :',old);if(candidate===null)return;const name=candidate.trim().replace(/\s+/g,' ').slice(0,80);if(!name){alert('Nom vide interdit.');return}if(TEAMS.some((t,j)=>j!==i&&t.toLocaleLowerCase('fr')===name.toLocaleLowerCase('fr'))){alert('Ce nom existe déjà.');return}TEAMS[i]=name;for(const p of data.people)if(p.team===old)p.team=name;if(filterTeam===old)filterTeam=name;save();toast('Secteur renommé : opérateurs conservés')}
+function removeSector(i){const name=TEAMS[i];if(!name||TEAMS.length<=1)return;const count=data.people.filter(p=>p.team===name).length;const fallback=TEAMS.find(t=>t!==name&&t==='Autre')||TEAMS.find(t=>t!==name);if(!confirm(count?`Supprimer « ${name} » ? Ses ${count} opérateur(s) seront automatiquement déplacés dans « ${fallback} ». Les historiques resteront conservés.`:`Supprimer le secteur « ${name} » ?`))return;for(const p of data.people)if(p.team===name)p.team=fallback;TEAMS.splice(i,1);if(filterTeam===name)filterTeam='';save();toast('Secteur supprimé')}
+$('#sectoraddform').addEventListener('submit',e=>{e.preventDefault();if(addSector(e.currentTarget.elements.sector.value))e.currentTarget.reset()});$('#sectorlist').addEventListener('click',e=>{const btn=e.target.closest('[data-sector]');if(!btn)return;const i=Number(btn.dataset.idx);if(btn.dataset.sector==='rename')renameSector(i);else if(btn.dataset.sector==='remove')removeSector(i)});
+function personModal(pid){const p=data.people.find(p=>p.id===pid)||{id:'',name:'',team:TEAMS[0],job:'',type:'trigano'};$('#modalroot').innerHTML=`<div class="modalwrap"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalheading"><h2 id="modalheading">${pid?'Modifier':'Ajouter'} un opérateur</h2><form id="personform"><div class="field"><label>Nom et prénom</label><input name="name" maxlength="140" value="${esc(p.name)}" required autofocus></div><div class="field"><label>Secteur</label><select name="team">${TEAMS.map(t=>option(t,t,p.team)).join('')}</select></div><div class="field"><label>Poste / fonction</label><input name="job" maxlength="100" value="${esc(p.job)}" placeholder="Ex. Menuiserie, montage, contrôle…"></div><div class="field"><label>Contrat</label><select name="type">${option('trigano','CDI / CDD Trigano',p.type)}${option('adecco','Intérim Adecco',p.type)}${option('autre','Autre',p.type)}</select></div><div class="actions"><button type="button" class="btn secondary" id="cancelmodal">Annuler</button><button class="btn">Enregistrer</button></div></form></div></div>`;$('#cancelmodal').onclick=()=>$('#modalroot').innerHTML='';$('#personform').onsubmit=e=>{e.preventDefault();const f=e.currentTarget;const name=f.elements.name.value.trim();if(!name)return;const duplicate=data.people.some(o=>o.id!==pid&&o.name.toLocaleLowerCase('fr')===name.toLocaleLowerCase('fr'));if(duplicate&&!confirm('Un opérateur porte déjà ce nom. Ajouter quand même ?'))return;const payload={name,team:f.elements.team.value,job:f.elements.job.value.trim(),type:f.elements.type.value};if(pid)Object.assign(data.people.find(x=>x.id===pid),payload);else data.people.push({id:id(),...payload,active:true});$('#modalroot').innerHTML='';save();toast('Fiche opérateur enregistrée')};$('#personform [name=name]').focus()}
+function download(filename,contents,type){const b=new Blob([contents],{type});const a=document.createElement('a');const url=URL.createObjectURL(b);a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),6000)}
+function csv(){const sep=';';const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const fields=[['Date','Nom','Secteur','Poste','Contrat','Statut','Motif','Minutes','Justifié','Commentaire']];for(const p of people()){const r=getRec(p.id);fields.push([frdate(selectedDate),p.name,p.team,p.job,p.type,STATUSES[r.status],MOTIFS[r.motif]?.[0]||'',r.minutes,r.justified?'Oui':'Non',r.comment])}download('Suivi_operateurs_'+selectedDate+'.csv','\uFEFF'+fields.map(row=>row.map(quote).join(sep)).join('\r\n'),'text/csv;charset=utf-8')}
+$('#date').value=selectedDate;$('#date').onchange=e=>{selectedDate=e.target.value||today();render()};$('#team').onchange=e=>{filterTeam=e.target.value;render()};$('#search').oninput=e=>{query=e.target.value.toLocaleLowerCase('fr');render()};$('#today').onclick=()=>{$('#date').value=today();selectedDate=today();render()};$('#print').onclick=()=>window.print();$('#csv').onclick=csv;document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{activeTab=b.dataset.tab;render()});$('#addperson').onclick=()=>personModal(null);$('#rosteradd').onclick=()=>personModal(null);
+$('#daybody').addEventListener('change',e=>{const el=e.target.closest('[data-edit]');if(!el)return;const pid=el.closest('tr').dataset.pid;const key=el.dataset.edit;const value=key==='justified'?el.checked:key==='minutes'?Math.max(0,Math.min(1440,Math.round(Number(el.value)||0))):el.value;updateRec(pid,{[key]:value})});$('#rosterbody').addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const p=data.people.find(x=>x.id===b.dataset.id);if(!p)return;if(b.dataset.action==='editperson')personModal(p.id);if(b.dataset.action==='toggleperson'){if(!confirm((p.active?'Désactiver':'Réactiver')+' '+p.name+' ? Les anciens pointages seront conservés.'))return;p.active=!p.active;save()}});$('#backup').onclick=()=>download('Sauvegarde_operateurs_trigano_'+today()+'.json',JSON.stringify(data,null,2),'application/json');
+initial();render();
 
-  <datalist id="roster-list"></datalist>
+function hdr(){return {'Authorization':'Bearer '+token,'Content-Type':'application/json'}}
+async function req(route,method='GET',payload=null){
+ const r=await fetch(API+encodeURIComponent(route),{method,cache:'no-store',headers:hdr(),...(payload===null?{}:{body:JSON.stringify(payload)})});
+ let j;try{j=await r.json()}catch{throw new Error('Réponse API invalide (HTTP '+r.status+')')}
+ if(!r.ok){const e=new Error(j.error||'Erreur HTTP '+r.status);e.status=r.status;throw e}return j;
+}
+function applyRemote(j){data=normalize(j.data);version=j.version;$('#lastsaved').textContent='Synchronisé '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});render()}
+function failSync(e){conflict=true;$('#syncError').hidden=false;$('#syncErrorText').textContent=e.status===409?'Une modification a été enregistrée depuis un autre compte. Exporte tes changements si nécessaire puis recharge les données du serveur.':'Sauvegarde impossible : '+e.message+'. Vérifie la connexion avant de modifier davantage.';$('#lastsaved').textContent='Non sauvegardé';}
+async function flushChanges(){
+ if(saving||conflict||!token)return;
+ saving=true;
+ try{
+   while(dirty>0&&!conflict){
+     const batch=dirty;const state=structuredClone(data);
+     const j=await req('save','POST',{version,data:state});version=j.version;dirty-=batch;
+     $('#lastsaved').textContent='Synchronisé '+new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+   }
+ }catch(e){if(e.status===401){logout(false);return}failSync(e)}finally{saving=false}
+}
+async function reloadRemote(){
+ if(!token||conflict||dirty||saving||polling)return;
+ if(document.querySelector('#modalroot .modalwrap')||document.activeElement?.closest('#daybody, #rosterbody'))return;
+ polling=true;try{const j=await req('state');if(j.version!==version)applyRemote(j)}catch(e){if(e.status===401){logout(false)}else $('#lastsaved').textContent='Connexion interrompue'}finally{polling=false}
+}
+async function login(e){
+ e.preventDefault();const f=e.currentTarget;const b=f.querySelector('button[type="submit"]');b.disabled=true;$('#loginError').textContent='Connexion…';
+ try{
+   const j=await req('login','POST',{user:f.elements.user.value,code:f.elements.code.value});
+   token=j.token;account=j.user;
+   const result=await req('state');
+   applyRemote(result);dirty=0;conflict=false;
+   sessionStorage.setItem('trigano_op_session',JSON.stringify({token,account}));
+   $('#loginOverlay').hidden=true;$('#loginError').textContent='';f.elements.code.value='';$('#currentuser').textContent='Compte : '+account;
+ }catch(err){token='';account='';sessionStorage.removeItem('trigano_op_session');$('#loginError').textContent='Connexion impossible : '+err.message}
+ finally{b.disabled=false}
+}
+function logout(callApi=true){
+ const current=token;token='';account='';version=0;dirty=0;conflict=false;sessionStorage.removeItem('trigano_op_session');$('#loginOverlay').hidden=false;$('#currentuser').textContent='Non connecté';$('#syncError').hidden=true;initial();render();
+ if(callApi&&current)fetch(API+'logout',{method:'POST',headers:{'Authorization':'Bearer '+current,'Content-Type':'application/json'}}).catch(()=>{});
+}
+$('#loginForm').addEventListener('submit',login);
+$('#logout').addEventListener('click',()=>{if(dirty&&!confirm('Des modifications ne sont pas enregistrées. Se déconnecter ?'))return;logout()});
+$('#backupConflict').onclick=()=>download('Sauvegarde_non_synchronisee_'+today()+'.json',JSON.stringify(data,null,2),'application/json');
+$('#reloadConflict').onclick=async()=>{if(dirty&&!confirm('Recharger les données du serveur ? Les modifications locales non enregistrées seront perdues.'))return;try{const result=await req('state');conflict=false;dirty=0;$('#syncError').hidden=true;applyRemote(result)}catch(e){alert(e.message)}};
+(async()=>{try{const session=JSON.parse(sessionStorage.getItem('trigano_op_session')||'null');if(session?.token&&session?.account){token=session.token;account=session.account;const j=await req('state');applyRemote(j);$('#loginOverlay').hidden=true;$('#currentuser').textContent='Compte : '+account}}catch{logout(false)}})();
+setInterval(reloadRemote,5000);
 
-  <div id="toast" class="toast">✅ Sauvegardé avec succès !</div>
-
-  <header>
-    <div class="brand">
-      <div class="logo-box">TRIGANO</div>
-      <div class="site-title">Registre d'Absences & Retards - Ligne 6</div>
-    </div>
-    <div class="print-header-details" id="print-date-display">Date du registre : --/--/----</div>
-    
-    <div style="display: flex; gap: 1vw; align-items: center;">
-      <button id="btn-today" class="btn-today" onclick="goToToday()">📅 Aujourd'hui</button>
-      <div class="date-picker-container" id="date-wrapper">
-        <span class="date-label">📅 Date :</span>
-        <input type="date" id="calendar-date" onchange="changeDate()">
-      </div>
-    </div>
-  </header>
-
-  <div class="summary-bar">
-    <div class="counters">
-      <div class="counter-item">
-        <span class="counter-label">Personnes Absentes / En Retard</span>
-        <span class="counter-value val-red" id="count-absent">0</span>
-      </div>
-      <div class="counter-item">
-        <span class="counter-label">Total Temps Perdu</span>
-        <span class="counter-value val-blue" id="count-hours">0 h</span>
-      </div>
-    </div>
-    <div class="action-group">
-      <button id="btn-save" class="btn-action btn-save" onclick="manualSave()">💾 Enregistré</button>
-      <button class="btn-action" onclick="window.print()">🖨️ Imprimer Registre</button>
-      <button class="btn-action" style="background:#0f172a; border-color:#0369a1; color:#38bdf8;" onclick="exportCSV()">📊 Excel</button>
-    </div>
-  </div>
-
-  <main>
-    <div class="add-bar" id="add-bar-section">
-      <!-- Ajout du lien list="roster-list" pour l'autocomplétion -->
-      <input type="text" id="emp-name" placeholder="Nom et Prénom du salarié" autocomplete="off" list="roster-list">
-      <select id="emp-type">
-        <option value="trigano">CDI / CDD Trigano</option>
-        <option value="adecco">Intérim Adecco</option>
-      </select>
-      <button class="btn-add" onclick="addEmployee()">+ Déclarer une absence</button>
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 20%;">Salarié Absent / En Retard</th>
-            <th style="width: 12%;">Contrat</th>
-            <th style="width: 38%;">Motif</th>
-            <th style="width: 12%; text-align: center;">Temps (H/Min)</th>
-            <th style="width: 13%; text-align: center;">Justificatif</th>
-            <th style="width: 5%; text-align: center;" class="col-delete">Retirer</th>
-          </tr>
-        </thead>
-        <tbody id="employee-list">
-          <!-- Injecté par JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <div class="print-signature">
-      <div>
-        <strong>Notes / Commentaires :</strong>
-        <div style="width: 300px; border-bottom: 1px dotted black; margin-top: 25px;"></div>
-        <div style="width: 300px; border-bottom: 1px dotted black; margin-top: 25px;"></div>
-      </div>
-      <div>
-        <strong>Visa du Manager / Chef d'équipe :</strong>
-        <div class="sig-box"></div>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    // Configuration des motifs avec des durées précises (h: heures, m: minutes)
-    const MOTIFS_CONFIG = {
-      'journee': { label: 'Absent Journée Complète', h: 8, m: 30, autoJustified: false },
-      'matin': { label: 'Absent Matin', h: 4, m: 30, autoJustified: false },
-      'aprem': { label: 'Absent Après-Midi', h: 4, m: 0, autoJustified: false },
-      'retard': { label: 'Retard', h: 0, m: 15, autoJustified: false },
-      'depart_anticipe': { label: 'Départ Anticipé', h: 1, m: 0, autoJustified: false },
-      'maladie': { label: 'Arrêt Maladie (AM)', h: 8, m: 30, autoJustified: true },
-      'accident_travail': { label: 'Accident du Travail (AT)', h: 8, m: 30, autoJustified: true },
-      'cp': { label: 'Congé Payé (CP)', h: 8, m: 30, autoJustified: true },
-      'rtt': { label: 'RTT / Repos', h: 8, m: 30, autoJustified: true },
-      'sans_solde': { label: 'Congé Sans Solde', h: 8, m: 30, autoJustified: true },
-      'evenement_familial': { label: 'Événement Familial', h: 8, m: 30, autoJustified: true },
-      'injustifie': { label: 'Absence Injustifiée', h: 8, m: 30, autoJustified: false },
-      'formation': { label: 'Formation / Mission', h: 8, m: 30, autoJustified: true },
-      'visite_medicale': { label: 'Visite Médicale', h: 2, m: 0, autoJustified: true }
-    };
-
-    let db = { roster: [], history: {} };
-    let selectedDate = "";
-    let unsavedChanges = false;
-    
-    function getTodayString() { return new Date().toISOString().split('T')[0]; }
-    
-    function formatDateFR(dateStr) {
-      if(!dateStr) return "";
-      const [y, m, d] = dateStr.split('-');
-      return `${d}/${m}/${y}`;
-    }
-
-    // MISE A JOUR / MIGRATION BASE DE DONNÉES AUTOMATIQUE
-    function loadDatabase() {
-      const saved = localStorage.getItem('triganoDB_V7');
-      if (saved) {
-        try {
-          let parsed = JSON.parse(saved);
-          if (parsed.history) {
-            Object.keys(parsed.history).forEach(date => {
-              // 1. Filtrer les employés présents de l'ancienne version
-              parsed.history[date] = parsed.history[date].filter(emp => emp.status !== 'present');
-              // 2. Convertir les heures décimales en (h, m) si nécessaire
-              parsed.history[date].forEach(emp => {
-                if (emp.h === undefined) {
-                  emp.h = Math.floor(emp.hours || 0);
-                  emp.m = Math.round(((emp.hours || 0) - emp.h) * 60);
-                  delete emp.hours; // Nettoyage de l'ancienne variable
-                }
-              });
-            });
-          }
-          db = parsed;
-        } catch(e) {
-          console.error("Erreur de migration des données :", e);
-        }
-      }
-      updateDatalist();
-      goToToday();
-    }
-
-    function updateDatalist() {
-      const dataList = document.getElementById('roster-list');
-      dataList.innerHTML = "";
-      db.roster.forEach(emp => {
-        const option = document.createElement('option');
-        option.value = emp.name;
-        dataList.appendChild(option);
-      });
-    }
-
-    function markUnsaved() {
-      unsavedChanges = true;
-      const btn = document.getElementById('btn-save');
-      btn.innerHTML = "⚠️ Enregistrer";
-      btn.style.backgroundColor = "var(--accent-orange)";
-      btn.style.animation = "pulse-orange 1.5s infinite";
-    }
-
-    function manualSave() {
-      localStorage.setItem('triganoDB_V7', JSON.stringify(db));
-      unsavedChanges = false;
-      const btn = document.getElementById('btn-save');
-      btn.innerHTML = "✅ Enregistré";
-      btn.style.backgroundColor = "var(--accent-green)";
-      btn.style.animation = "none";
-      const toast = document.getElementById("toast");
-      toast.className = "toast show";
-      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-    }
-
-    window.addEventListener('beforeunload', (e) => {
-      if (unsavedChanges) { e.preventDefault(); e.returnValue = ''; }
-    });
-
-    function initDay(date) {
-      if (!db.history[date]) {
-        db.history[date] = []; // Plus de copie automatique des présents. Historique vide = pas d'absences.
-        localStorage.setItem('triganoDB_V7', JSON.stringify(db));
-      }
-    }
-
-    function changeDate() {
-      if (unsavedChanges) manualSave();
-      selectedDate = document.getElementById('calendar-date').value;
-      document.getElementById('print-date-display').textContent = `Date du registre : ${formatDateFR(selectedDate)}`;
-
-      const today = getTodayString();
-      if (selectedDate !== today) {
-        document.body.classList.add('is-archive');
-        document.getElementById('date-wrapper').classList.add('archive-active');
-        document.getElementById('add-bar-section').style.display = 'none'; 
-        document.getElementById('btn-today').style.display = 'block';      
-      } else {
-        document.body.classList.remove('is-archive');
-        document.getElementById('date-wrapper').classList.remove('archive-active');
-        document.getElementById('add-bar-section').style.display = 'flex';
-        document.getElementById('btn-today').style.display = 'none';
-      }
-
-      initDay(selectedDate);
-      renderTable();
-      const btn = document.getElementById('btn-save');
-      btn.innerHTML = "✅ Enregistré";
-      btn.style.backgroundColor = "var(--accent-green)";
-      btn.style.animation = "none";
-    }
-
-    function goToToday() {
-      document.getElementById('calendar-date').value = getTodayString();
-      changeDate(); 
-    }
-
-    function addEmployee() {
-      const name = document.getElementById('emp-name').value.trim();
-      if (!name) return alert("Veuillez entrer un nom.");
-      const type = document.getElementById('emp-type').value;
-
-      // Ajouter au dictionnaire global (Roster) pour l'autocomplétion s'il n'existe pas
-      if (!db.roster.find(e => e.name.toLowerCase() === name.toLowerCase())) {
-        db.roster.push({ id: Date.now().toString(), name, type });
-        updateDatalist();
-      }
-
-      // Vérifier s'il n'y est pas déjà dans la journée
-      if (db.history[selectedDate].find(e => e.name.toLowerCase() === name.toLowerCase())) {
-        return alert("Ce salarié est déjà enregistré dans les absences d'aujourd'hui.");
-      }
-      
-      const defaultMotif = 'journee';
-      const newEmp = { 
-        id: Date.now().toString() + Math.floor(Math.random()*1000), 
-        name, 
-        type, 
-        status: defaultMotif, 
-        h: MOTIFS_CONFIG[defaultMotif].h, 
-        m: MOTIFS_CONFIG[defaultMotif].m, 
-        justified: MOTIFS_CONFIG[defaultMotif].autoJustified 
-      };
-
-      db.history[selectedDate].push(newEmp);
-      document.getElementById('emp-name').value = "";
-      markUnsaved(); 
-      renderTable();
-    }
-
-    function removeEmployee(id) {
-      if (confirm("Supprimer cette entrée du registre d'aujourd'hui ?")) {
-        db.history[selectedDate] = db.history[selectedDate].filter(emp => emp.id !== id);
-        markUnsaved(); renderTable();
-      }
-    }
-
-    function setMotif(id, motifKey) {
-      const emp = db.history[selectedDate].find(e => e.id === id);
-      if (emp && MOTIFS_CONFIG[motifKey]) {
-        emp.status = motifKey;
-        emp.h = MOTIFS_CONFIG[motifKey].h;
-        emp.m = MOTIFS_CONFIG[motifKey].m;
-        emp.justified = MOTIFS_CONFIG[motifKey].autoJustified;
-        markUnsaved(); renderTable();
-      }
-    }
-
-    function updateTime(id, hValue, mValue) {
-      const emp = db.history[selectedDate].find(e => e.id === id);
-      if (emp) {
-        let newH = parseInt(hValue) || 0;
-        let newM = parseInt(mValue) || 0;
-        if (newH < 0) newH = 0;
-        if (newM < 0) newM = 0;
-        
-        // Ajustement automatique des minutes si >= 60
-        if (newM >= 60) {
-          newH += Math.floor(newM / 60);
-          newM = newM % 60;
-        }
-
-        emp.h = newH;
-        emp.m = newM;
-        markUnsaved(); 
-        renderTable();
-      }
-    }
-
-    function toggleJustified(id) {
-      const emp = db.history[selectedDate].find(e => e.id === id);
-      if (emp) {
-        emp.justified = !emp.justified;
-        markUnsaved(); renderTable();
-      }
-    }
-
-    function exportCSV() {
-      if (unsavedChanges) manualSave();
-      const dayData = db.history[selectedDate];
-      if (!dayData || !dayData.length) return alert("Aucune absence enregistrée pour cette date.");
-      
-      let csvContent = "data:text/csv;charset=utf-8,\uFEFFDate: " + formatDateFR(selectedDate) + "\n\nSalarie;Contrat;Motif;Temps Perdu;Justifie\n";
-      
-      dayData.forEach(emp => {
-        let m = MOTIFS_CONFIG[emp.status] ? MOTIFS_CONFIG[emp.status].label : emp.status;
-        let c = emp.type === 'adecco' ? 'Adecco' : 'Trigano';
-        let timeStr = `${emp.h}h${emp.m.toString().padStart(2, '0')}`;
-        let j = emp.justified ? 'OUI' : 'NON';
-        csvContent += `${emp.name};${c};${m};${timeStr};${j}\n`;
-      });
-      
-      const link = document.createElement("a");
-      link.href = encodeURI(csvContent);
-      link.download = `Absences_Ligne6_${selectedDate}.csv`;
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-    }
-
-    function renderTable() {
-      const tbody = document.getElementById('employee-list');
-      tbody.innerHTML = ""; 
-      const dayData = db.history[selectedDate] || [];
-
-      // Ordre alphabétique pur, le tableau ne contenant que des absents/retards
-      dayData.sort((a, b) => a.name.localeCompare(b.name));
-
-      dayData.forEach(emp => {
-        const tr = document.createElement('tr');
-        
-        const badgeClass = emp.type === 'adecco' ? 'badge-adecco' : 'badge-trigano';
-        const badgeText = emp.type === 'adecco' ? 'ADECCO' : 'TRIGANO';
-        let motifLabel = MOTIFS_CONFIG[emp.status] ? MOTIFS_CONFIG[emp.status].label : emp.status;
-
-        let selectOptionsHtml = "";
-        for (const [key, val] of Object.entries(MOTIFS_CONFIG)) {
-          selectOptionsHtml += `<option value="${key}" ${emp.status === key ? 'selected' : ''}>${val.label}</option>`;
-        }
-
-        // Formats spéciaux pour l'impression papier
-        let printStatusText = `<span class="print-only-text status-absent">❌ ${motifLabel}</span>`;
-        let printHoursText = `<span class="print-only-text status-absent">${emp.h}h${emp.m.toString().padStart(2, '0')}</span>`;
-        let printJustifText = emp.justified 
-          ? `<span class="print-only-text">✅ Oui (Justifié)</span>` 
-          : `<span class="print-only-text" style="font-weight:bold;">⚠️ Non Justifié</span>`;
-
-        tr.innerHTML = `
-          <td><strong>${emp.name}</strong></td>
-          <td><span class="badge-contrat ${badgeClass}">${badgeText}</span></td>
-          <td>
-            <div style="display: flex; align-items: center;">
-              <select class="motif-selector" onchange="setMotif('${emp.id}', this.value)">${selectOptionsHtml}</select>
-            </div>
-            ${printStatusText}
-          </td>
-          <td style="text-align: center;">
-            <div class="time-input-wrapper">
-              <input type="number" class="time-input" value="${emp.h}" min="0" max="24" onchange="updateTime('${emp.id}', this.value, ${emp.m})">
-              <span class="time-separator">h</span>
-              <input type="number" class="time-input" value="${emp.m}" min="0" max="59" onchange="updateTime('${emp.id}', ${emp.h}, this.value)">
-            </div>
-            ${printHoursText}
-          </td>
-          <td style="text-align: center;">
-            <button class="btn-justif ${emp.justified ? 'yes' : 'no'}" onclick="toggleJustified('${emp.id}')">
-              ${emp.justified ? '✅ Justifié' : '⚠️ Non justifié'}
-            </button>
-            ${printJustifText}
-          </td>
-          <td style="text-align: center;" class="col-delete">
-            <button class="btn-delete" onclick="removeEmployee('${emp.id}')" title="Retirer ce salarié du registre du jour">🗑️</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      // Mise à jour des compteurs
-      document.getElementById('count-absent').textContent = dayData.length;
-      
-      let totalH = 0;
-      let totalM = 0;
-      dayData.forEach(e => {
-          totalH += parseInt(e.h) || 0;
-          totalM += parseInt(e.m) || 0;
-      });
-      totalH += Math.floor(totalM / 60);
-      totalM = totalM % 60;
-      
-      // Affichage stylisé du total (ex: 8 h 30 min)
-      let displayTime = `${totalH} h`;
-      if (totalM > 0) displayTime += ` ${totalM.toString().padStart(2, '0')} min`;
-      document.getElementById('count-hours').textContent = displayTime;
-    }
-
-    loadDatabase();
-    document.getElementById('emp-name').addEventListener('keypress', (e) => { if (e.key === 'Enter') addEmployee(); });
-  </script>
-</body>
-</html>
+</script></body></html>
